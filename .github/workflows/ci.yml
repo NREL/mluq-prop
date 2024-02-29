@@ -54,7 +54,6 @@ jobs:
           format mluqprop/BNN/util/*.py true
           format mluqprop/BNN/metric/*.py true
           format mluqprop/BNN/toys/*.py true
-          format mluqprop/dimensionReduction true
       - name: Install dependencies
         run: |
           pip install .
