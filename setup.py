@@ -10,9 +10,9 @@ setup(
     name='mluqprop',
     version='0.0.1',
     description="UQ for ML closure models",
-    url="https://github.com/NREL/S-mluq-prop",
+    url="https://github.com/NREL/mluq-prop",
     license="BSD 3-Clause",
-    package_dir={"mluqprop": "mluqprop", "mluqprop_applications": "mluqprop_applications"},
+    package_dir={"mluqprop": "mluqprop", "applications": "applications"},
     classifiers=[
         "Intended Audience :: Science/Research",
         "License :: BSD 3 License",
