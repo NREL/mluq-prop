@@ -1,4 +1,4 @@
-name: UQPROP-CI
+name: MLUQPROP-CI
 
 on:
    push:
@@ -7,7 +7,7 @@ on:
      branches: [main]
 
 jobs:
-  uqprop:
+  mluqprop:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
