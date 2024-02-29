@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#SBATCH --account=safvto
+#SBATCH --time=06:00:00
+#SBATCH --job-name=splitbnn
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=gtpash@utexas.edu
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --qos=high
+#SBATCH --output=../logs/R-%x.%j.out
+#SBATCH --error=../logs/R-%x.%j.err
+#SBATCH --gres=gpu:2
+
+# Load environment.
+source ~/.bashrc
+conda init bash
+
+# conda activate /projects/mluq/condaEnvs/uqprop
+conda activate mluq
+
+# Navigate to working directory.
+cd /projects/mluq/mluq-prop/BNN
+
+# Run script.
+srun python trainer.py --input inputs/splitbnn.in --verbose --no-metrics

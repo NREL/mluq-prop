@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#SBATCH --account=mluq
+#SBATCH --time=12:00:00
+#SBATCH --job-name=SYepialea
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=gtpash@utexas.edu
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --qos=high
+#SBATCH --gres=gpu:1
+#SBATCH --output=../logs/R-%x.%j.out
+
+# Load environment.
+source ~/.bashrc
+conda init bash
+
+# conda activate /projects/mluq/condaEnvs/uqprop
+conda activate mluq
+
+# Navigate to working directory.
+cd /projects/mluq/mluq-prop/BNN
+
+# Run script.
+# srun python train_scalar_dissipation.py --input /projects/mluq/mluq-prop/BNN/inputs/tester.in
+# srun python train_scalar_dissipation.py --input /projects/mluq/mluq-prop/BNN/inputs/shashankEpiTrainer.in --verbose
+srun python train_scalar_dissipation.py --input /projects/mluq/mluq-prop/BNN/inputs/shashankFullTrainer.in --verbose
+# srun python train_scalar_dissipation.py --input /projects/mluq/mluq-prop/BNN/inputs/scalarDissipationTrainer.in --verbose

@@ -1,0 +1,52 @@
+#------------------------------------------
+# Architecture
+#------------------------------------------
+# Model form for posterior. Use either "mvn" or "independent". Only used for DenseVariational based BNN.
+posterior_model = "independent"
+# Activation function (nonlinearity). Use either "relu", "tanh", or "sigmoid"
+nonlin          = "relu"
+# Number of units in each hidden layer.
+hidden_dim      = 10
+# Number of hidden layers.
+num_layers      = 3
+# Which kind of Bayesian NN to train. Use either "epi" for epistemic uncertainty ONLY, or "variational" for a full Bayesian treatment (including aleatoric uncertainty), use "flipout" for a full Bayesian treatment with flipout layers.
+model_type      = "variational"
+# Whether or not to rescale the KL-divergence function. Only used for DenseFlipout based BNN.
+rescale         = "False"
+
+#------------------------------------------
+# Training
+#------------------------------------------
+# Maximum number of training iterations (epochs).
+max_iter        = 1000
+# Number of epochs before early stopping kicks in.
+patience        = 50
+# Number of data to be included in each batch.
+batch_size      = 8000
+# Initial learning rate for scheduler.
+lrinit          = 1e-2
+# Final learning rate for scheduler.
+lrfinal         = 1e-5
+# Gradient norm to clip at
+grad_clip       = 1e6
+# Number of aleatoric realizations.
+nalea           = 200
+# Number of epistemic model realizations.
+nepi            = 100
+
+#------------------------------------------
+# I/O
+#------------------------------------------
+# Filepath to dataset to be loaded.
+data_fpath      = "/projects/mluq/mluq-prop/data/dns/leanData.npz"
+use_lean        = True
+# Filepath to inducing points.
+uips_fpath      = "/projects/mluq/frechet_uips_best_redo/frechetDistRef_100.npz"
+# Filename for training history.
+filename        = "leanflipout"
+# Where to save model results.
+savedir         = "/projects/mluq/mluq-prop/models/experiments/lean/flipout"
+# Path for checkpointing callback.
+checkpath       = "/scratch/gpash/lean/flipout"
+# How many epochs to optimize before reporting metrics
+skip            = 25

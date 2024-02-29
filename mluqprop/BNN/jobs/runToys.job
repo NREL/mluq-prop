@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#SBATCH --account=mluq
+#SBATCH --time=1:00:00
+#SBATCH --job-name=runToy
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=gtpash@utexas.edu
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --qos=normal
+#SBATCH --gres=gpu:1
+#SBATCH --output=R-%x.%j.out
+
+# Load environment.
+source ~/.bashrc
+conda init bash
+conda activate mluq 
+
+# Navigate to working directory.
+cd /projects/mluq/mluq-prop/BNN
+
+# Run script.
+./run_toys.sh

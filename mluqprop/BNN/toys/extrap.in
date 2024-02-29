@@ -1,0 +1,33 @@
+#------------------------------------------
+# Architecture
+#------------------------------------------
+posterior_model = "mvn"             # Model form for posterior. Use either "mvn" or "independent".
+nonlin          = "sigmoid"            # Activation function (nonlinearity). Use either "relu", "tanh", or "sigmoid"
+hidden_dim      = 5                 # Number of units in each hidden layer.
+num_layers      = 2                 # Number of hidden layers.
+
+#------------------------------------------
+# Training
+#------------------------------------------
+max_iter        = 5000              # Maximum number of training iterations (epochs).
+seed            = 0                 # RNG seed.
+optimizer       = "adam"            # Optimizer to be used in training.
+
+#------------------------------------------
+# Data Generation
+#------------------------------------------
+num_test_data   = 500               # Number of training data points to generate.
+num_train_data  = 1000              # Number of test data points to generate.
+num_synth_data  = 500               # Number of synthetic (out of distribution) data points.
+synth_noise     = 1                 # Level of noise added to the synthetic (out of distribution) data.
+noise_level     = 0.25              # Level of noise added to generated data (aleatory uncertainty).
+min_offset      = 0.1               # Minimum offset for soft brownian offset.
+
+#------------------------------------------
+# Output
+#------------------------------------------
+num_samples     = 500                   # Number of prediction samples from the Bayesian network.
+percentiles     = 90                    # Credible interval percentiles for predictions.
+num_plots       = 15                    # Number of prediction samples to display on plots.
+filename        = "bnn_priors"          # Name of ultimate output figure.
+checkpath       = "/tmp/"               # Path to save model checkpoints.

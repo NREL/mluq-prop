@@ -1,0 +1,48 @@
+#!/bin/bash
+#SBATCH --account=pace
+#SBATCH --time=2:00:00
+#SBATCH --job-name=kse_prop
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=graham.pash@nrel.gov
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=36
+#SBATCH --qos=high
+#SBATCH --output=R-%x.%j.out
+
+# Load and activate your conda environment
+module purge
+module load conda
+conda activate tfp
+cd /projects/pace/gpash/uq-prop/KSE
+
+# Folder setup
+log_dir=prop_log
+mkdir -p $log_dir
+
+# Run 1 job per core
+N_JOB_PER_BATCH=$SLURM_NTASKS
+# Number of times all processors run a job = # of jobs/ # job per batch
+N_BATCH=4
+
+# Run many small jobs
+for((j=0;j<$N_BATCH;j++))
+do
+
+  for((i=0;i<$N_JOB_PER_BATCH;i++))
+  do
+    # Construct a unique job ID
+    jobid=$((i + j*N_JOB_PER_BATCH))
+
+    # Run each as a 1-core job, where -n XX can be adjusted as needed
+    srun --overlap -n 1 python main.py --inputfname input_src --rseed $jobid --outdir $log_dir &
+
+  done
+
+  #Wait until all jobs running on the node are done before launching the next batch
+  wait
+
+done
+
+# Finalize
+echo "All done"
+

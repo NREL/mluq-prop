@@ -1,0 +1,52 @@
+#!/bin/bash
+
+#-------------------------------------------------------
+# 
+#         <------ Setup Parameters ------>
+#
+#SBATCH -J ExtrapLRM10D
+#SBATCH -N 10
+#SBATCH -n 20
+#SBATCH -o /home/gpash/S-mluq-prop/mluqprop/BNN/logs/E-LRM10D.%j.out
+#SBATCH -e /home/gpash/S-mluq-prop/mluqprop/BNN/logs/E-LRM10D.%j.err
+#SBATCH -t 24:00:00
+#SBATCH -A mluq
+#SBATCH --qos=normal
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=gtpash@utexas.edu
+
+JOBFILE="extrapjobs.txt"
+
+#------------------------------------------------------ 
+# Load environment.
+source ~/.bashrc
+conda init bash
+conda activate /projects/mluq/condaEnvs/uqprop
+cd /home/gpash/S-mluq-prop/mluqprop/BNN/
+
+SCRATCH=/scratch/gpash/
+export SCRATCH
+
+# Make directory for logs.
+LOGDIR=$SCRATCH/extrap10d/lrm/logs
+mkdir -p $LOGDIR
+export LOGDIR
+
+# Make directory for checkpointing
+CHECKPATH=$SCRATCH/extrap10d/lrm/ckpts
+mkdir -p $CHECKPATH
+export CHECKPATH
+
+#-----------------------------------------------------
+# MAKE SURE TO DELETE LOG FILE IF ONE EXISTS!
+#-----------------------------------------------------
+
+# Export launcher.
+export LAUNCHER_DIR=$LAUNCHER_DIR
+export LAUNCHER_WORKDIR=`pwd`
+export LAUNCHER_JOB_FILE=$JOBFILE
+export LAUNCHER_RMI=SLURM
+export LAUNCHER_SCHED=interleaved
+
+$LAUNCHER_DIR/paramrun
+

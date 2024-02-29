@@ -1,0 +1,28 @@
+#------------------------------------------
+# Architecture
+#------------------------------------------
+posterior_model = "mvn"             # Model form for posterior. Use either "mvn" or "independent".
+nonlin          = "relu"            # Activation function (nonlinearity). Use either "relu", "tanh", or "sigmoid"
+hidden_dim      = 22                # Number of units in each hidden layer.
+num_layers      = 4                 # Number of hidden layers.
+model_type      = "epi"            # Which kind of Bayesian NN to train. Use either "epi" for epistemic uncertainty ONLY, or "full" for a full Bayesian treatment (including aleatoric uncertainty).
+
+#------------------------------------------
+# Training
+#------------------------------------------
+max_iter        = 5000                      # Maximum number of training iterations (epochs).
+patience        = 2500                      # Number of epochs before early stopping kicks in.
+seed            = 0                         # RNG seed.
+batch_size      = 4096                      # Number of data to be included in each batch.
+optimizer       = "adam"                    # Optimizer to be used in training.
+lrinit          = 1e-6                      # Initial learning rate for scheduler.
+lrfinal         = 1e-9                      # Final learning rate for scheduler.
+checkpath       = "/scratch/gpash/epi"      # Path for checkpointing callback.
+
+#------------------------------------------
+# I/O
+#------------------------------------------
+datadir         = "/projects/mluq/mluq-prop/data/dns"             # Directory where data is located.
+datafile        = "Scaled_March16_KmeansOutput_AllCase.npz"     # Specific dataset to load.
+filename        = "epistemicSY"                               # Filename for training history.
+savedir         = "/projects/mluq/mluq-prop/models/scalarDissipation/epiSY"                      # Where to save model results.

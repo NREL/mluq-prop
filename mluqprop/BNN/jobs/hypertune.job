@@ -1,0 +1,50 @@
+#!/bin/bash
+
+#-------------------------------------------------------
+# 
+#         <------ Setup Parameters ------>
+#
+#SBATCH -J HypertuneLRM
+#SBATCH -N 20
+#SBATCH -n 180
+#SBATCH -o ../logs/H-LRM.%j.out
+#SBATCH -e ../logs/H-LRM.%j.err
+#SBATCH -t 36:00:00
+#SBATCH -A safvto
+#SBATCH --qos=high
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=gtpash@utexas.edu
+
+#------------------------------------------------------ 
+# Load environment.
+source ~/.bashrc
+conda init bash
+conda activate mluq
+cd /projects/mluq/mluq-prop/BNN
+
+SCRATCH=/scratch/gpash/
+export SCRATCH
+
+# Make directory for logs.
+LOGDIR=$SCRATCH/hypertune/lrm/logs
+mkdir -p $LOGDIR
+export LOGDIR
+
+# Make directory for checkpointing
+CHECKPATH=$SCRATCH/hypertune/lrm/ckpts
+mkdir -p $CHECKPATH
+export CHECKPATH
+
+#-----------------------------------------------------
+# MAKE SURE TO DELETE LOG FILE IF ONE EXISTS!
+#-----------------------------------------------------
+
+# Export launcher.
+export LAUNCHER_DIR=$LAUNCHER_DIR
+export LAUNCHER_WORKDIR=`pwd`
+export LAUNCHER_JOB_FILE=hyperjobs.txt
+export LAUNCHER_RMI=SLURM
+export LAUNCHER_SCHED=interleaved
+
+$LAUNCHER_DIR/paramrun
+

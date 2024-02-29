@@ -1,0 +1,16 @@
+uips>=0.0.7
+numpy
+prettyPlot>=0.0.10
+seaborn
+scikit-learn==1.2.2
+sbo
+tensorflow
+tensorflow_probability
+parameter-sherpa
+numpyro
+jax
+gpflow
+black
+isort
+codespell
+welford

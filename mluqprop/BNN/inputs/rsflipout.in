@@ -1,0 +1,52 @@
+#------------------------------------------
+# Architecture
+#------------------------------------------
+# Model form for posterior. Use either "mvn" or "independent". Only used for DenseVariational based BNN.
+posterior_model = "mvn"
+# Activation function (nonlinearity). Use either "relu", "tanh", or "sigmoid"
+nonlin          = "relu"
+# Number of units in each hidden layer.
+hidden_dim      = 22
+# Number of hidden layers.
+num_layers      = 4
+# Which kind of Bayesian NN to train. Use either "epi" for epistemic uncertainty ONLY, or "variational" for a full Bayesian treatment (including aleatoric uncertainty), use "flipout" for a full Bayesian treatment with flipout layers.
+model_type      = "flipout"
+# Whether or not to rescale the KL-divergence function. Only used for DenseFlipout based BNN.
+rescale         = "True"
+
+#------------------------------------------
+# Training
+#------------------------------------------
+# Maximum number of training iterations (epochs).
+max_iter        = 10000
+# Number of epochs before early stopping kicks in.
+patience        = 50
+# Number of data to be included in each batch.
+batch_size      = 4096
+# Initial learning rate for scheduler.
+lrinit          = 0.000001
+# Final learning rate for scheduler.
+lrfinal         = 0.000000001
+# Gradient norm to clip at
+grad_clip       = 1e6
+# Number of aleatoric realizations.
+nalea           = 200
+# Number of epistemic model realizations.
+nepi            = 100
+
+#------------------------------------------
+# I/O
+#------------------------------------------
+# Filepath to dataset to be loaded.
+data_fpath      = "/projects/mluq/mluq-prop/data/dns/Scaled_March16_KmeansOutput_AllCase.npz"
+use_lean        = False
+# Filepath to inducing points.
+uips_fpath      = "/projects/mluq/frechet_uips_best_redo/frechetDistRef_100.npz"
+# Filename for training history.
+filename        = "rsflipout"
+# Where to save model results.
+savedir         = "/projects/mluq/mluq-prop/models/experiments/rsflipout"
+# Path for checkpointing callback.
+checkpath       = "/scratch/gpash/rsflipout"
+# How many epochs to optimize before reporting metrics
+skip            = 25

@@ -1,0 +1,57 @@
+#------------------------------------------
+# Architecture
+#------------------------------------------
+# Model form for prior. Use either "isotropic" or "trainable". Only used for DenseVariational based BNN.
+prior_model = "trainable"
+# Model form for posterior. Use either "mvn" or "independent". Only used for DenseVariational based BNN.
+posterior_model = "independent"
+# Activation function (nonlinearity). Use any default Keras activations: https://www.tensorflow.org/api_docs/python/tf/keras/activations.
+nonlin          = "sigmoid"
+# Number of units in each hidden layer.
+hidden_dim      = 20
+# Number of hidden layers.
+num_layers      = 4
+# Which kind of Bayesian NN to train. Use either "epi" for epistemic uncertainty ONLY, or "variational" for a full Bayesian treatment (including aleatoric uncertainty), use "flipout" for a full Bayesian treatment with flipout layers.
+model_type      = "variational"
+# Whether or not to split the last layer of the BNN. Only for DenseVariational models.
+split           = False
+# Optional weighting of kl term. Value of -1 means that the KL term will be weighted by the number of data (proportional to ELBO)
+klweight        = -1
+
+#------------------------------------------
+# Training
+#------------------------------------------
+# Maximum number of training epochs.
+epochs          = 1500
+# Number of epochs before early stopping kicks in.
+patience        = 50
+# Number of data to be included in each batch.
+batch_size      = 2048
+# Initial learning rate for scheduler.
+learning_rate   = 0.0001
+# Final learning rate for scheduler.
+lrfinal         = 1e-8
+# Gradient norm to clip at
+grad_clip       = 1e3
+# Number of aleatoric realizations.
+nalea           = 200
+# Number of epistemic model realizations.
+nepi            = 100
+
+#------------------------------------------
+# I/O
+#------------------------------------------
+# Directory where data is located.
+data_fpath      = "../../data/Scaled_March16_KmeansOutput_AllCase_lrmScale.npz"
+use_lean        = False
+# Filepath to inducing points.
+uips_fpath       = "../../inducing_LRM/inducingLRM_100.npz"
+# Filename for training history.
+filename        = "bestLRM"
+# Where to save model results.
+savedir         = "../../model-store/models/experiments/bestLRM/"
+# Path for checkpointing callback.
+# checkpath       = "/scratch/gpash/hypertune/lrm/ckpts/hyperjob_232"
+checkpath       = "../../model-store/models/experiments/bestLRM/best"
+# How many epochs to optimize before reporting metrics
+skip            = 50

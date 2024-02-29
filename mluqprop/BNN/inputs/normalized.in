@@ -1,0 +1,50 @@
+#------------------------------------------
+# Architecture
+#------------------------------------------
+# Model form for posterior. Use either "mvn" or "independent". Only used for DenseVariational based BNN.
+posterior_model = "independent"
+# Activation function (nonlinearity). Use any default Keras activations: https://www.tensorflow.org/api_docs/python/tf/keras/activations.
+nonlin          = "sigmoid"
+# Number of units in each hidden layer.
+hidden_dim      = 7
+# Number of hidden layers.
+num_layers      = 3
+# Which kind of Bayesian NN to train. Use either "epi" for epistemic uncertainty ONLY, or "variational" for a full Bayesian treatment (including aleatoric uncertainty), use "flipout" for a full Bayesian treatment with flipout layers.
+model_type      = "variational"
+
+#------------------------------------------
+# Training
+#------------------------------------------
+# Maximum number of training epochs.
+epochs          = 2500
+# Number of epochs before early stopping kicks in.
+patience        = 50
+# Number of data to be included in each batch.
+batch_size      = 32
+# Initial learning rate for scheduler.
+learning_rate   = 1e-4
+# Final learning rate for scheduler.
+lrfinal         = 1e-8
+# Gradient norm to clip at
+grad_clip       = 1e3
+# Number of aleatoric realizations.
+nalea           = 200
+# Number of epistemic model realizations.
+nepi            = 100
+
+#------------------------------------------
+# I/O
+#------------------------------------------
+# Directory where data is located.
+data_fpath      = "/projects/mluq/mluq-prop/data/dns/leanData.npz"
+use_lean        = True
+# Filepath to inducing points.
+uips_fpath       = "/projects/mluq/frechet_uips_best_redo/frechetDistRef_100.npz"
+# Filename for training history.
+filename        = "trainable_prior"
+# Where to save model results.
+savedir         = "/projects/mluq/mluq-prop/models/trainable_prior"
+# Path for checkpointing callback.
+checkpath       = "/scratch/gpash/trainable_prior"
+# How many epochs to optimize before reporting metrics
+skip            = 50
