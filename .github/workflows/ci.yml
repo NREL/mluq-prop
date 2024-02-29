@@ -1,0 +1,65 @@
+name: UQPROP-CI
+
+on:
+   push:
+     branches: [main]
+   pull_request:
+     branches: [main]
+
+jobs:
+  uqprop:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10']
+        mpi: ['openmpi']
+    defaults:
+      run:
+        working-directory: ${{github.workspace}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{matrix.python-version}}
+      - name: Setup MPI
+        uses: mpi4py/setup-mpi@v1
+        with:
+          mpi: ${{matrix.mpi}}
+      - name: Install formatting dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install black
+          python -m pip install isort
+          python -m pip install codespell
+      - name: Formatting
+        run: |
+          source .github/linters/formatting.sh
+          format mluqprop/OOD/NF/*.py true
+          format mluqprop/OOD/SBO/*.py true
+          format mluqprop/OOD/SBO/util/*.py true
+          format mluqprop/OOD/data/*.py true
+          format mluqprop/BNN/*.py true
+          format mluqprop/BNN/dev_scripts/*.py true
+          format mluqprop/BNN/util/*.py true
+          format mluqprop/BNN/metric/*.py true
+          format mluqprop/BNN/toys/*.py true
+          format mluqprop/dimensionReduction true
+      - name: Install dependencies
+        run: |
+          pip install .
+          python -m pip install pytest
+      - name: Run test suite
+        run: |
+          cd tests
+          python -m pytest -v --disable-warnings
+      - name: Test OOD NF
+        run: |
+          cd mluqprop/OOD/NF
+          bash exec_test.sh
+      - name: Test OOD SBO
+        run: |
+          cd mluqprop/OOD/SBO
+          bash exec_moons.sh 
