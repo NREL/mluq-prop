@@ -2,7 +2,7 @@ name: UQPROP-CI
 
 on:
    push:
-     branches: [main]
+     branches: [main,triggerci]
    pull_request:
      branches: [main]
 
