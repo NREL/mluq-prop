@@ -1,6 +1,6 @@
-import mluqprop_applications.KSE.main as main
-import mluqprop_applications.KSE.util.data as data
-import mluqprop_applications.KSE.util.simulation as simulation
+import applications.KSE.main as main
+import applications.KSE.util.data as data
+import applications.KSE.util.simulation as simulation
 import os
 
 def make_base_input():

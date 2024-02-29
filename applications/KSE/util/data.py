@@ -1,5 +1,5 @@
 import numpy as np
-from mluqprop_applications.KSE.util.integrator import *
+from applications.KSE.util.integrator import *
 
 import sys
 import os
