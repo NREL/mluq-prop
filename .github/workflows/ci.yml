@@ -51,7 +51,6 @@ jobs:
           format mluqprop/OOD/SBO/util/*.py true
           format mluqprop/OOD/data/*.py true
           format mluqprop/BNN/*.py true
-          format mluqprop/BNN/dev_scripts/*.py true
           format mluqprop/BNN/util/*.py true
           format mluqprop/BNN/metric/*.py true
           format mluqprop/BNN/toys/*.py true
