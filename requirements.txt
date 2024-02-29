@@ -1,6 +1,6 @@
 uips>=0.0.7
 numpy
-prettyPlot>=0.0.10
+prettyPlot>=0.0.27
 seaborn
 scikit-learn==1.2.2
 sbo
