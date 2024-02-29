@@ -2,9 +2,18 @@ name: MLUQPROP-CI
 
 on:
    push:
-     branches: [main,triggerci]
+     branches: [main]
+     paths-ignore:
+      - '*.md'
+      - 'README*'
+      - 'LICENSE'
+
    pull_request:
      branches: [main]
+     paths-ignore:
+      - '*.md'
+      - 'README*'
+      - 'LICENSE'
 
 jobs:
   mluqprop:
