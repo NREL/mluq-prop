@@ -18,7 +18,14 @@ Bayesian neural networks are an attractive method to estimate and predict modeli
 ## Reference
 If you find this repository useful in your research, please consider citing the following:
 ```
-
+@misc{pash2024priori,
+      title={A Priori Uncertainty Quantification of Reacting Turbulence Closure Models using Bayesian Neural Networks}, 
+      author={Graham Pash and Malik Hassanaly and Shashank Yellapantula},
+      year={2024},
+      eprint={2402.18729},
+      archivePrefix={arXiv},
+      primaryClass={physics.flu-dyn}
+}
 ```
 
 ## Acknowledgement
