@@ -2,11 +2,11 @@ import os
 import sys
 import argparse
 
-import mluqprop_applications.KSE.util.data as data
+import applications.KSE.util.data as data
 from prettyPlot.parser import parse_input_file
 import numpy as np
-import mluqprop_applications.KSE.util.postProc as postProc
-import mluqprop_applications.KSE.util.simulation as simulation
+import applications.KSE.util.postProc as postProc
+import applications.KSE.util.simulation as simulation
 
 def main(args):
     # ~~~~ Init
