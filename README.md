@@ -27,6 +27,7 @@ If you find this repository useful in your research, please consider citing the 
       primaryClass={physics.flu-dyn}
 }
 ```
+The NREL software record for this repository is SWR-24-36
 
 ## Acknowledgement
 > This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, Department of Energy Computational Science Graduate Fellowship under Award Number DE-SC0021110.
