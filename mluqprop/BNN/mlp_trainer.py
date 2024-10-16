@@ -77,6 +77,7 @@ def main(args):
         Xmetric = Xval
         Ymetric = Yval
 
+    breakpoint()
     # Get the data dimensions.
     N, DX = Xtrain.shape
     DY = Ytrain.shape[1]
