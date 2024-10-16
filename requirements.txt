@@ -4,8 +4,8 @@ prettyPlot>=0.0.27
 seaborn
 scikit-learn==1.2.2
 sbo
-tensorflow
-tensorflow_probability
+tensorflow==2.15.0.post1
+tensorflow_probability==0.23.0
 parameter-sherpa
 numpyro
 jax
