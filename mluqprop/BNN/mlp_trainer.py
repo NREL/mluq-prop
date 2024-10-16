@@ -68,17 +68,15 @@ def main(args):
     simparams.split = (
         True if simparams.split == "True" else False
     )  # manually handle the split flag.
-    
-    # manually load the data.
-    data = np.load(simparams.data_fpath)
-    Xtrain = data['Xtrain']
-    Ytrain = data['Ytrain']
-    Xval = data['Xtest']
-    Yval = data['Ytest']
-    Xmetric = Xval
-    Ymetric = Yval
+    if simparams.use_lean:
+        Xtrain, Ytrain = dns_partial_data_loader(simparams.data_fpath)
+        Xmetric = Xtrain
+        Ymetric = Ytrain
+    else:
+        Xtrain, Ytrain, Xval, Yval = dns_data_loader(simparams.data_fpath)
+        Xmetric = Xval
+        Ymetric = Yval
 
-    breakpoint()
     # Get the data dimensions.
     N, DX = Xtrain.shape
     DY = Ytrain.shape[1]
@@ -148,9 +146,10 @@ def main(args):
         optimizer=tf.keras.optimizers.Adam(
             learning_rate=simparams.learning_rate
         ),
-        loss=neg_loglik,
+        loss="mse",
     )
 
+    breakpoint()
     # Training.
     starttime = time()
     model_history = model.fit(
@@ -164,6 +163,8 @@ def main(args):
         validation_split=0.2 if simparams.use_lean else 0.0,
     )
     print("Elapsed time:", time() - starttime)
+
+    breakpoint()
 
     #############################
     # Cleanup.
