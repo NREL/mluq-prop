@@ -68,14 +68,15 @@ def main(args):
     simparams.split = (
         True if simparams.split == "True" else False
     )  # manually handle the split flag.
-    if simparams.use_lean:
-        Xtrain, Ytrain = dns_partial_data_loader(simparams.data_fpath)
-        Xmetric = Xtrain
-        Ymetric = Ytrain
-    else:
-        Xtrain, Ytrain, Xval, Yval = dns_data_loader(simparams.data_fpath)
-        Xmetric = Xval
-        Ymetric = Yval
+    
+    # manually load the data.
+    data = np.load(simparams.data_fpath)
+    Xtrain = data['Xtrain']
+    Ytrain = data['Ytrain']
+    Xval = data['Xtest']
+    Yval = data['Ytest']
+    Xmetric = Xval
+    Ymetric = Yval
 
     breakpoint()
     # Get the data dimensions.
