@@ -42,15 +42,15 @@ nepi            = 100
 # I/O
 #------------------------------------------
 # Directory where data is located.
-data_fpath      = "/projects/safvto/mhassana/data/Scaled_March16_KmeansOutput_AllCase_lrmScale_10D.npz"
+data_fpath      = "/projects/mluq/data/Scaled_March16_KmeansOutput_AllCase_lrmScale_10D.npz"
 use_lean        = False
 # Filepath to inducing points.
 uips_fpath       = "/projects/safvto/mhassana/inducing_LRM_100000_samp/inducingLRM_160.npz"
 # Filename for training history.
-filename        = "bestLRM10D"
+filename        = "mlp_bestLRM10D"
 # Where to save model results.
-savedir         = "/projects/mluq/model-store/models/experiments/bestLRM10D/"
+savedir         = "/home/gpash/model-store/models/experiments/mlp_bestLRM10D/"
 # Path for checkpointing callback.
-checkpath         = "/projects/mluq/model-store/models/experiments/bestLRM10D/best"
+checkpath         = "/home/gpash/model-store/models/experiments/mlp_bestLRM10D/best"
 # How many epochs to optimize before reporting metrics
 skip            = 50
