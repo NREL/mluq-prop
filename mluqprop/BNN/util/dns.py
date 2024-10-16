@@ -52,7 +52,7 @@ def dns_data_loader(fpath:str):
         xtest (np.ndarray): Test input data.
         ytest (np.ndarray): Test output data.
     """
-    data = np.load(fpath, allow_pickle=True)
+    data = np.load(fpath)
     x = data['Xtrain']
     y = data['Ytrain']
     xtest = data['Xtest']
