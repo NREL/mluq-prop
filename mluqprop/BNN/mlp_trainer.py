@@ -137,7 +137,6 @@ def main(args):
         layer_mask=layer_mask,
     )
     model = abstractmodel.build_mlp()
-    breakpoint()
 
     # Tell everyone about the model you built.
     model.summary()
@@ -149,7 +148,6 @@ def main(args):
         loss="mse",
     )
 
-    breakpoint()
     # Training.
     starttime = time()
     model_history = model.fit(
@@ -163,8 +161,6 @@ def main(args):
         validation_split=0.2 if simparams.use_lean else 0.0,
     )
     print("Elapsed time:", time() - starttime)
-
-    breakpoint()
 
     #############################
     # Cleanup.
@@ -208,7 +204,7 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Train Bayesian Neural Network using DNS dataset."
+        description="Train deterministic (MLP) neural network using DNS dataset."
     )
 
     parser.add_argument("--input", help="Input deck.")
