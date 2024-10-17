@@ -27,7 +27,7 @@ import numpy as np
 import seaborn as sns
 
 from mluqprop.BNN.util.metrics import compute_snr, compute_snr_flipout, vec_model_moments, conditionalAverage, weighted_norm
-from mluqprop.BNN.util.models import load_model, compute_prob_predictions, compute_raw_epi_predictions, compute_epi_predictions_from_raw
+from mluqprop.BNN.util.models import load_model, load_mlp_model, compute_prob_predictions, compute_raw_epi_predictions, compute_epi_predictions_from_raw
 from mluqprop.BNN.util.plotting import *
 from mluqprop.BNN.util.dns import dns_data_loader, dns_partial_data_loader
 from mluqprop.BNN.util.input_parser import parse_input_deck
@@ -133,12 +133,35 @@ def main(args):
 
         lrm_physical = inv_scale_otpt_lrm(0.*Ytest, Xtest)
 
-    print("Making hex-scatter plot for the predictive mean.")
-    breakpoint()
-    PlotLogHexScatter(simparams, Ytest, np.array(epipreds_mean))
-    
-    # todo: report MSE
+    # load in the MLP model
+    mlp_model = load_mlp_model(
+        fpath=os.path.join(args.mlpckpt, "best/", "best"),
+        D_X=D_X,
+        D_H=simparams.hidden_dim,
+        D_Y=DY,
+        N_H=simparams.num_layers,
+        kl_weight=1 / N if simparams.model_type == "variational" else 1.,
+        model_type=simparams.model_type,
+        activation_fn=simparams.nonlin,
+        posterior_model=simparams.posterior_model,
+        split=simparams.split
+    )
 
+    mlp_preds = mlp_model(Xtest)
+    mlp_preds_orig = np.copy(mlp_preds)
+
+    if args.rescale:
+        mlp_preds = inv_scale_otpt_lrm(mlp_preds, Xtest)
+
+
+    lrm_mse = np.square(np.subtract(Ytest, lrm_physical)).mean()
+    mlp_mse = np.square(np.subtract(Ytest, mlp_preds)).mean()
+    bnn_mse = np.square(np.subtract(Ytest, preds_mean)).mean()
+
+    print(f"LRM MSE:\t{lrm_mse}")
+    print(f"MLP MSE:\t{mlp_mse}")
+    print(f"BNN MSE:\t{bnn_mse}")
+    
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Evaluate BNN model performance on DNS data.")
@@ -146,6 +169,7 @@ if __name__ == "__main__":
     parser.add_argument("--input", help="Input deck.")
     parser.add_argument("--npredict", type=int, default=100)
     parser.add_argument("--rescale", action=argparse.BooleanOptionalAction, default=True, help="Rescale data to physical space.")
+    parser.add_argument("--mlpckpt", type=str, help="Path to MLP model for comparison")
 
     args = parser.parse_args()
 
