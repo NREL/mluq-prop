@@ -11,7 +11,7 @@
 #SBATCH --partition standard
 #SBATCH --output=logs/R-%x.%j.out
 
-INPUTDECK=$HOME/mluq-prop/mluqprop/BNN/inputs/mlp_bestLRM10D.in
+INPUTDECK=/projects/mluq/graham/mluq-prop/mluqprop/BNN/inputs/mlp_bestLRM10D.in
 
 # Load environment.
 module load conda
@@ -19,7 +19,7 @@ module load openmpi
 conda activate uqprop
 
 # Navigate to working directory.
-cd /projects/mluq/graham/mluq-prop/BNN/
+cd /projects/mluq/graham/mluq-prop/mluqprop/BNN/
 
 # Run script.
 srun python3 mlp_trainer.py --input $INPUTDECK --verbose --no-metrics
