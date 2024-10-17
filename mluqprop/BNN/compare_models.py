@@ -36,7 +36,7 @@ from mluqprop.BNN.util.input_parser import parse_input_deck
 from mluqprop import MLUQPROP_DATA_DIR
 #sys.path.append("/Users/mhassana/Desktop/GitHub/S-mluq-prop_10d_jan12/data_10D/")
 sys.path.append(MLUQPROP_DATA_DIR)
-from scaling_upgraded import inv_scale_otpt_lrm, inv_scale_otpt, inv_scale_inpt, computeLRM_fromScaled, inv_scale_otpt_stdn, inv_scale_uncertainty
+from scaling_upgraded_10D import inv_scale_otpt_lrm, inv_scale_otpt, inv_scale_inpt, computeLRM_fromScaled, inv_scale_otpt_stdn, inv_scale_uncertainty
 
 
 __author__ = "Graham Pash"
@@ -131,8 +131,13 @@ def main(args):
         preds_mean = inv_scale_otpt_lrm(preds_mean, Xtest)
         Ytest = inv_scale_otpt_lrm(Ytest, Xtest)
 
+        lrm_physical = inv_scale_otpt_lrm(0.*Ytest, Xtest)
+
     print("Making hex-scatter plot for the predictive mean.")
+    breakpoint()
     PlotLogHexScatter(simparams, Ytest, np.array(epipreds_mean))
+    
+    # todo: report MSE
 
 
 if __name__ == "__main__":
