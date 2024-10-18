@@ -1,27 +1,25 @@
 #!/bin/bash
 
 #SBATCH --account=mluq
-#SBATCH --time=24:00:00
-#SBATCH --job-name=isopriorLRM10D
+#SBATCH --time=08:00:00
+#SBATCH --job-name=mlp_bestLRM10D
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=gtpash@utexas.edu
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --qos=high
-#SBATCH --gres=gpu:1
-#SBATCH --output=../logs/R-%x.%j.out
+#SBATCH --partition standard
+#SBATCH --output=logs/R-%x.%j.out
 
-INPUTDECK=/home/gpash/S-mluq-prop/mluqprop/BNN/inputs/isopriorLRM10D.in
+INPUTDECK=/projects/mluq/graham/mluq-prop/mluqprop/BNN/inputs/mlp_bestLRM10D.in
 
 # Load environment.
-source ~/.bashrc
-conda init bash
-
-# conda activate /projects/mluq/condaEnvs/uqprop
-conda activate mluq
+module load conda
+module load openmpi
+conda activate uqprop
 
 # Navigate to working directory.
-cd /projects/mluq/mluq-prop/BNN
+cd /projects/mluq/graham/mluq-prop/mluqprop/BNN/
 
 # Run script.
-srun python trainer.py --input $INPUTDECK --verbose --no-metrics
+srun python3 mlp_trainer.py --input $INPUTDECK --verbose --no-metrics

@@ -6,8 +6,6 @@
 1. `conda create --name uqprop python=3.10`
 2. `pip install -e .`
 
-An environment file `uqprop.yml` is also provided in the `env` for convenience.
-
 ### For NREL HPC users
 1. `module load openmpi/4.1.0/gcc-8.4.0`
 2. `conda activate /projects/mluq/condaEnvs/uqprop`

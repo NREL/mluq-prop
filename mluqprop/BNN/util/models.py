@@ -807,6 +807,40 @@ def load_model(fpath:str, D_X:int, D_H:int, D_Y:int, N_H:int, kl_weight:int=1, m
 
     return model
 
+
+# ========================================================================
+# Load weights from checkpoint file into specified deterministic net (MLP)
+def load_mlp_model(fpath:str, D_X:int, D_H:int, D_Y:int, N_H:int, kl_weight:int=1, model_type:str='variational', activation_fn='sigmoid', posterior_model="independent", split:bool=False, layer_mask:list=None):
+    """Helper function to load model from checkpointed weights. This is necessary as TensorFlow Probability does not support saving/loading models with `model.save` method, if you would like to inspect the weight posteriors distributions.
+
+    Args:
+        fpath (str): Filepath to the checkpoint file.
+        D_X (int): Input dimension.
+        D_H (int): Number of units in hidden dimension.
+        D_Y (int): Output dimension.
+        N_H (int): Number of hidden layers.
+        batch_size (int, optional): Number of training data in each minibatch for KL rescaling. Defaults to 1.
+        model_type (str, optional): Type of model to load. Either "epi", "variational", or "flipout". Defaults to 'variational'.
+        activation_fn (str, optional): Activation function of the model. Defaults to 'relu'.
+        posterior_model (str, optional): Posterior model. Either "mvn" or "independent". Only for use with DenseVariatioanl layers, i.e. "variational" model type. Defaults to "mvn".
+        split (Optional, bool): Whether to split the last layer of the model into mean and std. Defaults to False.
+            layer_mask (list): List of 0s and 1s to indicate which layers to use. 0 indicates that the layer should be deterministic. Defaults to "None", i.e. not to be used.
+
+    Returns:
+        TensorFlow model.
+    """
+    # Specify the architecture.
+    abstract_model = BNNHyperModel(dx=D_X, dh=D_H, dy=D_Y, nh=N_H, kl_weight=kl_weight, model_type=model_type, activation_fn=activation_fn, posterior_model=posterior_model, split=split, layer_mask=layer_mask)
+    
+    # Build model.
+    model = abstract_model.build_mlp()
+
+    # Load weights into model.
+    model.load_weights(fpath)
+
+    return model
+
+
 # ========================================================================
 # Load weights from checkpoint file into specified net
 def load_model_from_unsplit_weights(fpath:str, D_X:int, D_H:int, D_Y:int, N_H:int, kl_weight:int=1, model_type:str='variational', activation_fn='sigmoid', posterior_model="independent", split:bool=False, layer_mask:list=None):
