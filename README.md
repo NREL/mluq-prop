@@ -6,7 +6,7 @@
 1. `conda create --name uqprop python=3.10`
 2. `pip install -e .`
 
-### For NREL HPC users
+### For NLR HPC users
 1. `module load openmpi/4.1.0/gcc-8.4.0`
 2. `conda activate /projects/mluq/condaEnvs/uqprop`
 
@@ -30,6 +30,6 @@ The NREL software record for this repository is SWR-24-36
 ## Acknowledgement
 > This material is based upon work supported by the U.S. Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, Department of Energy Computational Science Graduate Fellowship under Award Number DE-SC0021110.
 
-> This work was authored in part by the National Renewable Energy Laboratory (NREL), operated by Alliance for Sustainable Energy, LLC, for the U.S. Department of Energy (DOE) under Contract No. DE-AC36-08GO28308. This work was supported as part of DEGREES, an Energy Earthshot Research Center (EERC) funded by the U.S. Department of Energy, Office of Science, Basic Energy Sciences. The research was performed using computational resources sponsored by the Department of Energy's Office of Energy Efficiency and Renewable Energy and located at the National Renewable Energy Laboratory.
+> This work was authored in part by the National Laboratory of the Rockies (NLR), operated by Alliance for Energy Innovation, LLC, for the U.S. Department of Energy (DOE) under Contract No. DE-AC36-08GO28308. This work was supported as part of DEGREES, an Energy Earthshot Research Center (EERC) funded by the U.S. Department of Energy, Office of Science, Basic Energy Sciences. The research was performed using computational resources sponsored by the Department of Energy's Office of Critical Minerals and Energy Innovation (CMEI) and located at the National Laboratory of the Rockies.
 
 The views expressed in the article do not necessarily represent the views of the DOE or the U.S. Government. The U.S. Government retains and the publisher, by accepting the article for publication, acknowledges that the U.S. Government retains a nonexclusive, paid-up, irrevocable, worldwide license to publish or reproduce the published form of this work, or allow others to do so, for U.S. Government purposes.
